@@ -4,17 +4,19 @@ from langchain_community.utilities import SerpAPIWrapper
 from langchain.agents import Tool,AgentExecutor,create_openai_functions_agent
 from langchain import hub
 
+import API_Keys
+
 #Adding the OpenAI API Key to use the chatmodule of OpenAI
-open_api_key="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"
+from API_Keys import open_api_key
 #Adding the SerpAPI Key to be used as searching tool
-serpapi_key="e89c9dc72f9d737d234394ec69b5d473913d84f6b3c743501c012e204dabe8a8"
+from API_Keys import serpapi_key
 
 #choose the prompt we want to use to guide the agent
 prompt = hub.pull("hwchase17/openai-functions-agent")
 
 
 #choosing SerpAPI as our searching tool
-search=SerpAPIWrapper()
+search=SerpAPIWrapper(serpapi_api_key= serpapi_key)
 tools = [Tool(name="Search",func=search.run,description="useful when you need to answer questions about current events or new state of the world"),]
 
 #Creating a memory for the agent to save chat history
